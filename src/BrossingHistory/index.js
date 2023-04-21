@@ -9,17 +9,41 @@ class BrowsingHistory extends Component {
     // Step 1: Initialize state with the list from props
     this.state = {
       list: props.history,
+      searchInput: '',
     }
   }
 
-  render() {
+  changeInput = event => {
+    this.setState({searchInput: event.target.value})
+  }
+
+  deleteFun = id => {
     const {list} = this.state
+
+    const newList = list.filter(eachItem => eachItem.id !== id)
+
+    this.setState({list: newList})
+  }
+
+  render() {
+    const {list, searchInput} = this.state
+    const listToShow = list.filter(eachItem =>
+      eachItem.title.toLowerCase().includes(searchInput.toLowerCase()),
+    )
     let historyObject
-    if (list.length === 0) {
-      historyObject = <h1>There is no history to show</h1>
+    if (listToShow.length === 0) {
+      historyObject = (
+        <div className="div-h1">
+          <p>There is no history to show</p>
+        </div>
+      )
     } else {
-      historyObject = list.map(eachItem => (
-        <HistoryItem item={eachItem} key={eachItem.id} />
+      historyObject = listToShow.map(eachItem => (
+        <HistoryItem
+          item={eachItem}
+          key={eachItem.id}
+          deleteItem={this.deleteFun}
+        />
       ))
     }
 
@@ -38,8 +62,9 @@ class BrowsingHistory extends Component {
               alt="search"
             />
             <input
+              onChange={this.changeInput}
               className="input-element"
-              type="text"
+              type="search"
               placeholder="Search history"
             />
           </div>
