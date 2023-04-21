@@ -1,0 +1,21 @@
+.history-element {
+  width: 100%;
+  display: flex;
+  align-items: center;
+}
+.logo-title {
+  margin-left: 10vw;
+  display: flex;
+  align-items: center;
+}
+.titles {
+  margin-left: 2vw;
+  display: flex;
+  align-items: center;
+}
+.item-title {
+  margin-right: 2vw;
+}
+.item-url {
+  margin-right: 2vw;
+}
